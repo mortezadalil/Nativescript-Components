@@ -1,10 +1,14 @@
-import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewChild,ViewContainerRef } from "@angular/core";
 import { DrawerPage } from "../drawer.page";
 import application = require("application");
 import * as Toast from 'nativescript-toasts';
+import { RouterExtensions } from "nativescript-angular/router";
 
 import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
+import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
+import { DialogContent } from '../CustomDialogTest/DialogContent.component'
+import dialogs = require("ui/dialogs");
 //import { DrawerService } from '../../services/drawer.service';
 // import { EventData } from 'data/observable';
 
@@ -45,7 +49,7 @@ import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/
 
     `]
 })
-export class HomePage extends DrawerPage implements AfterViewInit {
+export class HomePage extends DrawerPage  implements AfterViewInit {
 
     currentSlide: number = 1;
 
@@ -54,17 +58,22 @@ export class HomePage extends DrawerPage implements AfterViewInit {
 
     source: Array<any>;
     private counter: number;
+     @ViewChild('drawerComponent') protected drawerComponent: RadSideDrawerComponent;
 
     ngAfterViewInit(): void {
         //اگر ست تایم اوت نذاریم با جابجایی بین کامپوننت ها به خطا میخوریم
         //انگار ویوها هنوز لود نشده باشند
         setTimeout(() => {
+            this.drawer = this.drawerComponent.sideDrawer;//در والد این فیلد وجود دارد
             let sv = <ScrollView>this.sv.nativeElement;
             sv.android.setHorizontalScrollBarEnabled(false);
-        }, 0)
+        }, 10)
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+ constructor(private changeDetectorRef: ChangeDetectorRef,
+     private modalService: ModalDialogService,
+        private viewContainerRef: ViewContainerRef,
+     private routerExtensions: RouterExtensions) {
         super(changeDetectorRef);
         this.AndroidActivityEvent();
         this.source = [];
@@ -75,16 +84,51 @@ export class HomePage extends DrawerPage implements AfterViewInit {
         }
 
     }
+ public goBack() {
+        this.routerExtensions.backToPreviousPage();
+    }
+    public toggle() {
+        this.drawer.toggleDrawerState();
+        //el.showDrawer();
+        //   this._drawerService.toggleDrawerState();
+    }
+    
+    menu1() {
+        // inputType property can be dialogs.inputType.password or dialogs.inputType.text.
+        dialogs.prompt({
+            title: "عنوان  معمولی",
+            message: "متن پیام",
+            okButtonText: "تایید",
+            cancelButtonText: "لغو",
+            neutralButtonText: "دکمه",
+            defaultText: "متن پیش فرض",
+            inputType: dialogs.inputType.password
+        }).then(r => {
+            console.log("Dialog result: " + r.result + ", text: " + r.text);
+        });
+    }
 
+    menu2() {
+        let options: ModalDialogOptions = {
+            context: { promptMsg: "این هم دیالوگ کاستوم که یک کامپوننت است." },
+            fullscreen: false,
+            viewContainerRef: this.viewContainerRef
+        };
+
+        this.modalService.showModal(DialogContent, options);
+    }
 
     loadMoreItems(event) {
-        console.log("11111111111")  // Load more items here.
         this.counter += 1;
         this.source.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
 
     }
-    onLoaded(event) { console.log("onLoaded") }
-    onItemLoading(event) { console.log("onItemLoading") }
+    onLoaded(event) { 
+      //  console.log("onLoaded") 
+    }
+    onItemLoading(event) { 
+      //  console.log("onItemLoading") 
+    }
     onItemTap(event) {
         this.counter += 1;
         this.source.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })

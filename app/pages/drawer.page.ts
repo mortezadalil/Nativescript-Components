@@ -14,6 +14,8 @@ export class DrawerPage implements AfterViewInit {
     ngAfterViewInit() {
    //     this.drawer = this.drawerComponent.sideDrawer;
         this._changeDetectorRef.detectChanges();
+        
+        
     }
 
     protected openDrawer() {

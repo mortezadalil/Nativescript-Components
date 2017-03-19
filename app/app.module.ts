@@ -14,6 +14,7 @@ import {CheckboxComponent} from "./components/checkbox/checkbox.component";
 import {StatusPipe} from './pipes/status.pipe';
 import {TodosService} from './services/todos.service';
 import { DialogContent } from './pages/CustomDialogTest/DialogContent.component'
+import { FilePage } from './pages/file/file.page';
 
 
 
@@ -28,7 +29,8 @@ import { DialogContent } from './pages/CustomDialogTest/DialogContent.component'
         TodoListComponent,
         CheckboxComponent,
         StatusPipe,
-        DialogContent
+        DialogContent,
+        FilePage
     ],
     bootstrap: [
         AppComponent

@@ -1,65 +1,17 @@
-import { Component, ViewChild, ChangeDetectorRef,ViewContainerRef } from "@angular/core";
-import { DrawerPage } from "./pages/drawer.page";
-import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
-import { RouterExtensions } from "nativescript-angular/router";
-import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
-import { DialogContent } from './pages/CustomDialogTest/DialogContent.component'
-import dialogs = require("ui/dialogs");
+import { Component } from "@angular/core";
 
 @Component({
     selector: 'app',
-    //  template: '<page-router-outlet></page-router-outlet>',
-    templateUrl: 'app.html'
+    template: '<page-router-outlet></page-router-outlet>',
+  //چون روت به شکل پیج است نمیتوان یک تمپلیت لی اوت اینجا تعریف کرد
+  //چون روت به صورت پیجی باعث حفظ اکتیویتی در استک میشود و دکمه بک معنی دارد
+  //اگر در روت کلمه پیچ را نگذاریم میتوانیم در همینجا لی اوت هم اضافه کنیم اما
+  //مشکل این است که دیگر در استک چیزی باقی نمیماند و هر چای برنامه
+  //دکمه بک را بزنیم از برنامه خارج میوشویم
 })
-export class AppComponent extends DrawerPage {
-    @ViewChild('drawerComponent')
-    public drawerComponent: RadSideDrawerComponent;
-    ngAfterViewInit(): void {
-        //اگر ست تایم اوت نذاریم با جابجایی بین کامپوننت ها به خطا میخوریم
-        //انگار ویوها هنوز لود نشده باشند
-        setTimeout(() => {
-            this.drawer = this.drawerComponent.sideDrawer;
-        }, 0)
-    }
-    constructor(private changeDetectorRef: ChangeDetectorRef,
-     private modalService: ModalDialogService,
-        private viewContainerRef: ViewContainerRef,
-     private routerExtensions: RouterExtensions) {
-        super(changeDetectorRef);
+export class AppComponent {
 
-
-
-    }
-    public goBack() {
-        this.routerExtensions.backToPreviousPage();
-    }
-    public toggle() {
-        this.drawer.toggleDrawerState();
-        //el.showDrawer();
-        //   this._drawerService.toggleDrawerState();
-    }
-    menu1() {
-        // inputType property can be dialogs.inputType.password or dialogs.inputType.text.
-        dialogs.prompt({
-            title: "عنوان  معمولی",
-            message: "متن پیام",
-            okButtonText: "تایید",
-            cancelButtonText: "لغو",
-            neutralButtonText: "دکمه",
-            defaultText: "متن پیش فرض",
-            inputType: dialogs.inputType.password
-        }).then(r => {
-            console.log("Dialog result: " + r.result + ", text: " + r.text);
-        });
-    }
-
-    menu2() {
-        let options: ModalDialogOptions = {
-            context: { promptMsg: "این هم دیالوگ کاستوم که یک کامپوننت است." },
-            fullscreen: false,
-            viewContainerRef: this.viewContainerRef
-        };
-
-        this.modalService.showModal(DialogContent, options);
-    }
+   
+   
+    
 }

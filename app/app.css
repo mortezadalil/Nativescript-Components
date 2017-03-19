@@ -50,7 +50,7 @@ ActionBar {
 }
 
 .drawer-content .drawer-links .drawer-link .text {
-    margin-left: 30px;
+    margin-right: 20px;
 }
 
 .drawer-content .drawer-links .current {

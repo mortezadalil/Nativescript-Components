@@ -1,12 +1,28 @@
+
+
+
 <GridLayout class="drawer-header">
 </GridLayout>
-<StackLayout class="drawer-links" orientation="vertical">
-    <StackLayout class="drawer-link"
+                
+<StackLayout class="drawer-links" orientation="vertical"  horizontalAlignment="right" style="direction: rtl">
+    <FlexboxLayout  flexDirection="row-reverse" class="drawer-link"
                  orientation="horizontal"
-                 [nsRouterLink]="['/home']">
+                 [nsRouterLink]="['/home']"
+                 >
         <Label class="fa" text="{{'fa-home' | fonticon}}"></Label>
-        <Label class="text" text="Home"></Label>
-    </StackLayout>
+                 
+        <Label class="text" text="صفحه اصلی" margin-right="50"></Label>
+  
+    </FlexboxLayout >
+        <FlexboxLayout  flexDirection="row-reverse" class="drawer-link"
+                 orientation="horizontal"
+                 [nsRouterLink]="['/file']">
+        <Label class="fa" text="{{'fa-file' | fonticon}}"></Label>
+                 
+        <Label class="text" text="کار با فایل" margin-right="50"></Label>
+    </FlexboxLayout >
+ 
+ 
     <StackLayout class="drawer-link"
                  orientation="horizontal"
                  [nsRouterLink]="['/todo']">
