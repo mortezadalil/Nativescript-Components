@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewCh
 import { DrawerPage } from "../drawer.page";
 import application = require("application");
 import * as Toast from 'nativescript-toasts';
+import { RouterExtensions } from "nativescript-angular/router";
 
 import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
@@ -17,7 +18,8 @@ import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/
                  
         <Label class="text" text="صفحه اصلی" margin-right="50"></Label>
   
-   
+           <Label class="m-5" text="Back if in't first page'" color="#8C489F" (tap)="goBack()"></Label>
+
 
     `,
 
@@ -25,11 +27,13 @@ import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/
 export class FilePage  {
 
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    constructor(private changeDetectorRef: ChangeDetectorRef,  private routerExtensions: RouterExtensions) {
       
 
     }
 
-
+ public goBack() {
+        this.routerExtensions.backToPreviousPage();
+    }
   
 }

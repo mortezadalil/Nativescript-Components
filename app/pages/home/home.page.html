@@ -35,7 +35,7 @@
 
 
         <!-- >> scroll-view-horizontal-html -->
-        <ScrollView orientation="horizontal" height="200" #slider>
+        <ScrollView orientation="horizontal" height="200" #slider (loaded)="removeScrollbar()">
             <StackLayout orientation="horizontal">
                 <Button width="400" class="Box1" text="Title 1"></Button >
                 <Button  width="500" class="Box2" text="Title 2"></Button >
@@ -62,7 +62,6 @@
           <button text="<" row="0" col="0"  (tap)="tap('prev')" backgroundColor="white" horizontalAlignment="left" style="opacity:.2"></button>
                 <button text=">" row="0" col="1" (tap)="tap('next')" backgroundColor="white" horizontalAlignment="right" style="opacity:.2"></button>
                 </GridLayout>
-
                 </AbsoluteLayout>
                 <StackLayout>
                     <ListView [items]="source" (loaded)="onLoaded(event)" (itemLoading)="onItemLoading(event)" (itemTap)="onItemTap($event)"

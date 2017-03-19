@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewChild,ViewContainerRef } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { DrawerPage } from "../drawer.page";
 import application = require("application");
 import * as Toast from 'nativescript-toasts';
@@ -49,31 +49,39 @@ import dialogs = require("ui/dialogs");
 
     `]
 })
-export class HomePage extends DrawerPage  implements AfterViewInit {
+export class HomePage extends DrawerPage implements AfterViewInit {
+
 
     currentSlide: number = 1;
 
-    @ViewChild('slider')
-    sv: ElementRef;
-
     source: Array<any>;
     private counter: number;
-     @ViewChild('drawerComponent') protected drawerComponent: RadSideDrawerComponent;
+    @ViewChild('drawerComponent')
+    protected drawerComponent: RadSideDrawerComponent;
 
     ngAfterViewInit(): void {
         //اگر ست تایم اوت نذاریم با جابجایی بین کامپوننت ها به خطا میخوریم
         //انگار ویوها هنوز لود نشده باشند
         setTimeout(() => {
             this.drawer = this.drawerComponent.sideDrawer;//در والد این فیلد وجود دارد
-            let sv = <ScrollView>this.sv.nativeElement;
-            sv.android.setHorizontalScrollBarEnabled(false);
+
         }, 10)
     }
+setDrawer(){
+     this.drawer = this.drawerComponent.sideDrawer
+}
 
- constructor(private changeDetectorRef: ChangeDetectorRef,
-     private modalService: ModalDialogService,
+    @ViewChild('slider')
+    sv: ElementRef;
+    removeScrollbar() {
+        let sv = <ScrollView>this.sv.nativeElement;
+        sv.android.setHorizontalScrollBarEnabled(false);
+    }
+
+    constructor(private changeDetectorRef: ChangeDetectorRef,
+        private modalService: ModalDialogService,
         private viewContainerRef: ViewContainerRef,
-     private routerExtensions: RouterExtensions) {
+        private routerExtensions: RouterExtensions) {
         super(changeDetectorRef);
         this.AndroidActivityEvent();
         this.source = [];
@@ -84,15 +92,15 @@ export class HomePage extends DrawerPage  implements AfterViewInit {
         }
 
     }
- public goBack() {
-        this.routerExtensions.backToPreviousPage();
+    public goBack() {
+        //   this.routerExtensions.backToPreviousPage();
     }
     public toggle() {
         this.drawer.toggleDrawerState();
         //el.showDrawer();
         //   this._drawerService.toggleDrawerState();
     }
-    
+
     menu1() {
         // inputType property can be dialogs.inputType.password or dialogs.inputType.text.
         dialogs.prompt({
@@ -123,11 +131,11 @@ export class HomePage extends DrawerPage  implements AfterViewInit {
         this.source.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
 
     }
-    onLoaded(event) { 
-      //  console.log("onLoaded") 
+    onLoaded(event) {
+        //  console.log("onLoaded") 
     }
-    onItemLoading(event) { 
-      //  console.log("onItemLoading") 
+    onItemLoading(event) {
+        //  console.log("onItemLoading") 
     }
     onItemTap(event) {
         this.counter += 1;
@@ -191,6 +199,11 @@ export class HomePage extends DrawerPage  implements AfterViewInit {
             });
 
             application.android.on(application.AndroidApplication.activityBackPressedEvent, function (args: application.AndroidActivityBackPressedEventData) {
+                // setTimeout(() => {
+                //     this.drawer = this.drawerComponent.sideDrawer;//در والد این فیلد وجود دارد
+                //     let sv = <ScrollView>this.sv.nativeElement;
+                //     sv.android.setHorizontalScrollBarEnabled(false);
+                // }, 10)
                 console.log("Event: " + args.eventName + ", Activity: " + args.activity);
                 // Set args.cancel = true to cancel back navigation and do something custom.
             });
@@ -203,7 +216,7 @@ export class HomePage extends DrawerPage  implements AfterViewInit {
                 duration: Toast.DURATION.LONG
             };
         Toast.show(toastOptions1);
-                let toastOptions2: Toast.ToastOptions =
+        let toastOptions2: Toast.ToastOptions =
             {
                 text: "ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم",
                 duration: Toast.DURATION.LONG
@@ -211,7 +224,9 @@ export class HomePage extends DrawerPage  implements AfterViewInit {
         Toast.show(toastOptions2);
         //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
         //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
-        //     this.drawer.toggleDrawerState();
+        this.drawer.toggleDrawerState();
+
+        //   console.dir(this.sv)
     }
 
 }
