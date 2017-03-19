@@ -4,6 +4,7 @@ import application = require("application");
 import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
 import { DrawerService } from '../../services/drawer.service';
+import { EventData } from 'data/observable';
 
 // https://docs.nativescript.org/angular/code-samples/ui/scroll-view.html اسکرول اسلایدر
 // https://gist.github.com/NathanWalker/e8f4f7c42af04fc725764a9867936e3d دراور
@@ -33,6 +34,12 @@ import { DrawerService } from '../../services/drawer.service';
      .Box2{
        background-color:yellow;
     }
+    .white{
+     background-color:white;
+    }
+    .yellow{
+             background-color:yellow;
+    }
 
     `]
 })
@@ -47,6 +54,9 @@ export class HomePage extends DrawerPage implements AfterViewInit {
     public drawerComponent: RadSideDrawerComponent;
     private _drawer: SideDrawerType;
 
+    source : Array<any>;
+    private counter: number;
+
     ngAfterViewInit(): void {
         //اگر ست تایم اوت نذاریم با جابجایی بین کامپوننت ها به خطا میخوریم
         //انگار ویوها هنوز لود نشده باشند
@@ -60,8 +70,27 @@ export class HomePage extends DrawerPage implements AfterViewInit {
     constructor(private changeDetectorRef: ChangeDetectorRef, private _drawerService: DrawerService) {
         super(changeDetectorRef);
         this.AndroidActivityEvent();
+          this.source = [];
+        this.counter = 0;
+        for (var i = 0; i < 50; i++) {
+            this.source.push({title:"t"+i,email:"erer"+i+"@gmail.com"});
+            this.counter = i;
+        }
 
     }
+    loadMoreItems(event){
+        console.log("11111111111")  // Load more items here.
+           this.counter += 1;
+        this.source.push({title:"NEW: t"+this.counter,email:"erer"+this.counter+"@gmail.com"})
+     
+    }
+    onLoaded(event){console.log("onLoaded")}
+    onItemLoading(event){console.log("onItemLoading")}
+    onItemTap(event){
+               this.counter += 1;
+                this.source.push({title:"NEW: t"+this.counter,email:"erer"+this.counter+"@gmail.com"})
+ 
+        console.log("Tap"+event.index)}
     public toggle() {
         this._drawer.toggleDrawerState();
         //el.showDrawer();
