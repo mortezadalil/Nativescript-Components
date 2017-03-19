@@ -5,8 +5,8 @@ import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
 import { DrawerService } from '../../services/drawer.service';
 
-// https://docs.nativescript.org/angular/code-samples/ui/scroll-view.html
-
+// https://docs.nativescript.org/angular/code-samples/ui/scroll-view.html اسکرول اسلایدر
+// https://gist.github.com/NathanWalker/e8f4f7c42af04fc725764a9867936e3d دراور
 @Component({
     selector: 'home-page',
     templateUrl: 'pages/home/home.page.html',
