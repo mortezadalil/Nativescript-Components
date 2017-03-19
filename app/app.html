@@ -1,7 +1,7 @@
 <ActionBar title="dsd">
     <ActionItem text="left item" ios.position="left"></ActionItem>
-    <ActionItem text="Item1" ios.position="right" android.position="popup"></ActionItem>
-    <ActionItem text="Item2" ios.position="right" android.position="popup"></ActionItem>
+    <ActionItem text="دیالوک معمولی" ios.position="right" android.position="popup" (tap)="menu1()"></ActionItem>
+    <ActionItem text="دیالوگ کاستوم" ios.position="right" android.position="popup" (tap)="menu2()"></ActionItem>
     <ActionItem text="Item3" ios.position="right" android.position="popup"></ActionItem>
     <ActionItem>
         <Label class="m-5" text="Back if in't first page'" color="#8C489F" (tap)="goBack()"></Label>
@@ -26,12 +26,13 @@
             <drawer-content></drawer-content>
         </StackLayout>
     </ScrollView>
-    <StackLayout tkMainContent padding="40">
+    <StackLayout tkMainContent padding="20">
    
 
 <page-router-outlet></page-router-outlet>
 
 
+        </StackLayout>
 
 
 </RadSideDrawer>

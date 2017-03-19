@@ -1,3 +1,4 @@
+<!--
 <ActionBar title="dsd">
     <ActionItem text="left item" ios.position="left"></ActionItem>
     <ActionItem text="Item1" ios.position="right" android.position="popup"></ActionItem>
@@ -6,17 +7,13 @@
     <ActionItem>
         <Label class="m-5" text="Back if in't first page'" color="#8C489F" (tap)="goBack()"></Label>
     </ActionItem>
-    <!--https://docs.nativescript.org/angular/code-samples/ui/action-bar.html-->
+   
     <ActionItem ios.systemIcon="12" android.systemIcon="ic_menu_search"></ActionItem>
     <ActionItem ios.systemIcon="13" android.systemIcon="ic_menu_camera"></ActionItem>
     <ActionItem ios.systemIcon="7" android.systemIcon="ic_menu_call"></ActionItem>
     <ActionItem icon="res://ic_menu" (tap)="toggle()"></ActionItem>
 
-    <!--<StackLayout orientation="horizontal"
-    ios:horizontalAlignment="center"    android:horizontalAlignment="right">
-    <Label text="کامپوننت های من"  class="action-label"></Label>
 
-  </StackLayout>-->
     <NavigationButton  text="Menu" icon="res://ic_menu" (tap)="toggle()"></NavigationButton>
 
 </ActionBar>
@@ -28,11 +25,11 @@
     </ScrollView>
 
 
-    <StackLayout tkMainContent padding="40">
+    <StackLayout tkMainContent padding="40">-->
         <Label text="فونت بولد ایرانسنس" class="PersianBold"></Label>
         <Label text="فونت لایت ایرانسنس" class="PersianLight"></Label>
         <Label text="محل قراردادن فونت : /app/fonts"></Label>
-        <Button text="باز و بسته کردن دراور" (tap)="toggle()"></Button>
+        <Button text="باز و بسته کردن دراور" (tap)="OpenDrawer()"></Button>
 
 
         <!-- >> scroll-view-horizontal-html -->
@@ -75,13 +72,9 @@
                         </template>
                     </ListView>
                 </StackLayout>
+
+                <!--
             </StackLayout>
 
-
-
-
-
-
-
-
 </RadSideDrawer>
+-->

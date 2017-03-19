@@ -1,10 +1,12 @@
 import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewChild } from "@angular/core";
 import { DrawerPage } from "../drawer.page";
 import application = require("application");
+import * as Toast from 'nativescript-toasts';
+
 import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
-import { DrawerService } from '../../services/drawer.service';
-import { EventData } from 'data/observable';
+//import { DrawerService } from '../../services/drawer.service';
+// import { EventData } from 'data/observable';
 
 // https://docs.nativescript.org/angular/code-samples/ui/scroll-view.html اسکرول اسلایدر
 // https://gist.github.com/NathanWalker/e8f4f7c42af04fc725764a9867936e3d دراور
@@ -50,52 +52,46 @@ export class HomePage extends DrawerPage implements AfterViewInit {
     @ViewChild('slider')
     sv: ElementRef;
 
-    @ViewChild('drawerComponent')
-    public drawerComponent: RadSideDrawerComponent;
-    private _drawer: SideDrawerType;
-
-    source : Array<any>;
+    source: Array<any>;
     private counter: number;
 
     ngAfterViewInit(): void {
         //اگر ست تایم اوت نذاریم با جابجایی بین کامپوننت ها به خطا میخوریم
         //انگار ویوها هنوز لود نشده باشند
         setTimeout(() => {
-            this._drawer = this.drawerComponent.sideDrawer;
             let sv = <ScrollView>this.sv.nativeElement;
             sv.android.setHorizontalScrollBarEnabled(false);
         }, 0)
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef, private _drawerService: DrawerService) {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
         super(changeDetectorRef);
         this.AndroidActivityEvent();
-          this.source = [];
+        this.source = [];
         this.counter = 0;
         for (var i = 0; i < 50; i++) {
-            this.source.push({title:"t"+i,email:"erer"+i+"@gmail.com"});
+            this.source.push({ title: "t" + i, email: "erer" + i + "@gmail.com" });
             this.counter = i;
         }
 
     }
-    loadMoreItems(event){
+
+
+    loadMoreItems(event) {
         console.log("11111111111")  // Load more items here.
-           this.counter += 1;
-        this.source.push({title:"NEW: t"+this.counter,email:"erer"+this.counter+"@gmail.com"})
-     
+        this.counter += 1;
+        this.source.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
+
     }
-    onLoaded(event){console.log("onLoaded")}
-    onItemLoading(event){console.log("onItemLoading")}
-    onItemTap(event){
-               this.counter += 1;
-                this.source.push({title:"NEW: t"+this.counter,email:"erer"+this.counter+"@gmail.com"})
- 
-        console.log("Tap"+event.index)}
-    public toggle() {
-        this._drawer.toggleDrawerState();
-        //el.showDrawer();
-        //   this._drawerService.toggleDrawerState();
+    onLoaded(event) { console.log("onLoaded") }
+    onItemLoading(event) { console.log("onItemLoading") }
+    onItemTap(event) {
+        this.counter += 1;
+        this.source.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
+
+        console.log("Tap" + event.index)
     }
+
 
     private tap(input: string) {
 
@@ -156,6 +152,22 @@ export class HomePage extends DrawerPage implements AfterViewInit {
             });
         }
     }
-
+    OpenDrawer() {
+        let toastOptions1: Toast.ToastOptions =
+            {
+                text: "کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.",
+                duration: Toast.DURATION.LONG
+            };
+        Toast.show(toastOptions1);
+                let toastOptions2: Toast.ToastOptions =
+            {
+                text: "ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم",
+                duration: Toast.DURATION.LONG
+            };
+        Toast.show(toastOptions2);
+        //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
+        //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
+        //     this.drawer.toggleDrawerState();
+    }
 
 }

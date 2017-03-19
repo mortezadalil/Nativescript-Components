@@ -13,7 +13,9 @@ import {TodoListComponent} from "./components/todolist/todo.list.component";
 import {CheckboxComponent} from "./components/checkbox/checkbox.component";
 import {StatusPipe} from './pipes/status.pipe';
 import {TodosService} from './services/todos.service';
-import {DrawerService} from './services/drawer.service';
+import { DialogContent } from './pages/CustomDialogTest/DialogContent.component'
+
+
 
 @NgModule({
     declarations: [
@@ -25,7 +27,8 @@ import {DrawerService} from './services/drawer.service';
         DrawerComponent,
         TodoListComponent,
         CheckboxComponent,
-        StatusPipe
+        StatusPipe,
+        DialogContent
     ],
     bootstrap: [
         AppComponent
@@ -40,13 +43,13 @@ import {DrawerService} from './services/drawer.service';
         })
     ],
     providers: [
-        DrawerService,
         TodosService
      
     ],
     schemas: [
         NO_ERRORS_SCHEMA
-    ]
+    ],
+      entryComponents: [DialogContent],
 })
 export class AppModule {
 }
