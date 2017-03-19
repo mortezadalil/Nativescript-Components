@@ -1,0 +1,55 @@
+<ActionBar title="Home">
+    <NavigationButton text="Menu" icon="res://ic_menu" (tap)="toggle()"></NavigationButton>
+</ActionBar>
+<RadSideDrawer #drawerComponent tkToggleNavButton>
+    <ScrollView tkDrawerContent class="drawer-content">
+        <StackLayout horizzontalAlign="left">
+            <drawer-content></drawer-content>
+        </StackLayout>
+    </ScrollView>
+  
+
+ <StackLayout tkMainContent padding="40">
+        <Label text="فونت بولد ایرانسنس" class="PersianBold"></Label>
+        <Label text="فونت لایت ایرانسنس" class="PersianLight"></Label>
+        <Label text="محل قراردادن فونت : /app/fonts"></Label>
+<Button text="باز و بسته کردن دراور" (tap)="toggle()"></Button>
+
+
+    <!-- >> scroll-view-horizontal-html -->
+        <ScrollView orientation="horizontal" height="200" #slider>
+            <StackLayout orientation="horizontal" >
+                <Button  width="400" class="Box1" text="Title 1"></Button >
+                <Button  width="500" class="Box2" text="Title 2"></Button >
+                <Button  width="500" backgroundColor="green" text="Title 3"></Button >
+                <Button  width="500" backgroundColor="black" color="white" text="Title 4"></Button >
+                <Button  width="500" backgroundColor="blue" color="yellow" text="Title 5"></Button >
+            </StackLayout >
+        </ScrollView>
+        <!-- << scroll-view-horizontal-html -->
+      <StackLayout style="margin-top:20" >
+          <label class="{{currentSlide==1 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkblue;
+                        height:200;color:white;font-size: 20;
+                        text-align:center;" text="اسلاید1"></label>
+           <label class="{{currentSlide==2 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkgreen;
+                        height:200;color:white;font-size: 20;
+                        text-align:center" text="اسلاید2"></label>
+           <label class="{{currentSlide==3 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkred;
+                        height:200;color:white;font-size: 20;
+                        text-align:center" text="اسلاید3"></label>
+       <GridLayout rows="*" columns="*, *" height="50">
+          <button text="<" row="0" col="0" width="10%" (tap)="tap('prev')" ></button> 
+          <button text=">" row="0" col="1" width="10%" (tap)="tap('next')" ></button>
+      </GridLayout>
+      </StackLayout> 
+    </StackLayout>
+
+
+
+
+
+
+
+
+</RadSideDrawer>
+ 
