@@ -56,26 +56,33 @@ export class HomePage extends DrawerPage implements AfterViewInit {
 
     source: Array<any>;
     private counter: number;
-    @ViewChild('drawerComponent')
-    protected drawerComponent: RadSideDrawerComponent;
 
     ngAfterViewInit(): void {
-        //اگر ست تایم اوت نذاریم با جابجایی بین کامپوننت ها به خطا میخوریم
-        //انگار ویوها هنوز لود نشده باشند
-        setTimeout(() => {
-            this.drawer = this.drawerComponent.sideDrawer;//در والد این فیلد وجود دارد
-
-        }, 10)
+        //در کلاس والد ویوی دراور را به آبجکت تبدیل میکنیم
+        this.getDrawerView();
     }
-setDrawer(){
-     this.drawer = this.drawerComponent.sideDrawer
-}
 
-    @ViewChild('slider')
-    sv: ElementRef;
-    removeScrollbar() {
-        let sv = <ScrollView>this.sv.nativeElement;
-        sv.android.setHorizontalScrollBarEnabled(false);
+    //نکته مهم
+    //اسلایدر را به دو صورت میتوان در متدها گرفت 
+    //به کمک ویوچایلد که در متدهای چرخه حیات هم میشد استفاده کرد
+    //و راه دوم به کمک ارسال آبجکت المان از ویو به متد مثل مثال زیر
+    //راه اول کامنت شده است
+    // @ViewChild('slider')
+    // sv: ElementRef;
+    removeScrollbar(sv: ScrollView) {
+        // let sv = <ScrollView>this.sv.nativeElement;
+        //sv.android.setHorizontalScrollBarEnabled(false);
+        if (sv == undefined) {
+            console.log("UUUUU");
+        } else {
+            console.log("ScrollBare Created")
+            //میتوان از متدها یا پراپرتی های نیتیو خود اندروید یا آی او اس هم استفاده کرد
+            //اطلاعات مربوط به این متدها در آدرس زیر است
+            //https://docs.nativescript.org/api-reference/classes/_ui_scroll_view_.scrollview.html
+            //پراپرتی Android را نگاه کن
+            sv.android.setHorizontalScrollBarEnabled(false);
+        }
+
     }
 
     constructor(private changeDetectorRef: ChangeDetectorRef,
@@ -93,12 +100,11 @@ setDrawer(){
 
     }
     public goBack() {
+        //در صفحه اصلی کاربرد ندارد ولی در پیج های بعدی به درد میخورد
         //   this.routerExtensions.backToPreviousPage();
     }
     public toggle() {
         this.drawer.toggleDrawerState();
-        //el.showDrawer();
-        //   this._drawerService.toggleDrawerState();
     }
 
     menu1() {
@@ -224,6 +230,7 @@ setDrawer(){
         Toast.show(toastOptions2);
         //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
         //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
+       if(this.drawer!=undefined)
         this.drawer.toggleDrawerState();
 
         //   console.dir(this.sv)

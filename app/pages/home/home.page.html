@@ -1,4 +1,4 @@
-        <ActionBar title="dsd">
+<ActionBar title="dsd">
     <ActionItem text="left item" ios.position="left"></ActionItem>
     <ActionItem text="دیالوک معمولی" ios.position="right" android.position="popup" (tap)="menu1()"></ActionItem>
     <ActionItem text="دیالوگ کاستوم" ios.position="right" android.position="popup" (tap)="menu2()"></ActionItem>
@@ -20,7 +20,7 @@
     <NavigationButton  text="Menu" icon="res://ic_menu" (tap)="toggle()"></NavigationButton>
 
 </ActionBar>
-<RadSideDrawer #drawerComponent tkToggleNavButton drawerLocation="right">
+<RadSideDrawer #drawerComponent tkToggleNavButton drawerLocation="right" >
     <ScrollView tkDrawerContent class="drawer-content">
         <StackLayout horizzontalAlign="left">
             <drawer-content></drawer-content>
@@ -35,7 +35,7 @@
 
 
         <!-- >> scroll-view-horizontal-html -->
-        <ScrollView orientation="horizontal" height="200" #slider (loaded)="removeScrollbar()">
+        <ScrollView orientation="horizontal" height="200" #slider (loaded)="removeScrollbar(slider)" >
             <StackLayout orientation="horizontal">
                 <Button width="400" class="Box1" text="Title 1"></Button >
                 <Button  width="500" class="Box2" text="Title 2"></Button >
