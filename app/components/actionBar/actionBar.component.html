@@ -1,0 +1,22 @@
+<ActionBar title="عنوان برنامه">
+    <ActionItem text="left item" ios.position="left"></ActionItem>
+    <ActionItem text="دیالوک معمولی" ios.position="right" android.position="popup" (tap)="menu1()"></ActionItem>
+    <ActionItem text="دیالوگ کاستوم" ios.position="right" android.position="popup" (tap)="menu2()"></ActionItem>
+    <ActionItem text="Item3" ios.position="right" android.position="popup"></ActionItem>
+    <ActionItem *ngIf="!IsMainPage">
+        <Label class="m-5"  text="برگشت به اکتیویتی قبل" color="#8C489F" (tap)="goBack()"></Label>
+    </ActionItem>
+    <!--https://docs.nativescript.org/angular/code-samples/ui/action-bar.html-->
+    <ActionItem ios.systemIcon="12" android.systemIcon="ic_menu_search"></ActionItem>
+    <ActionItem ios.systemIcon="13" android.systemIcon="ic_menu_camera"></ActionItem>
+    <ActionItem ios.systemIcon="7" android.systemIcon="ic_menu_call"></ActionItem>
+    <ActionItem *ngIf="hasDrawer" icon="res://ic_menu" (tap)="toggle()"></ActionItem>
+
+    <!--<StackLayout orientation="horizontal"
+    ios:horizontalAlignment="center"    android:horizontalAlignment="right">
+    <Label text="کامپوننت های من"  class="action-label"></Label>
+
+  </StackLayout>-->
+    <NavigationButton *ngIf="hasDrawer" text="Menu" icon="res://ic_menu" (tap)="toggle()"></NavigationButton>
+
+</ActionBar>

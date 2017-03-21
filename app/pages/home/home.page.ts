@@ -2,13 +2,12 @@ import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ElementRef, ViewCh
 import { DrawerPage } from "../drawer.page";
 import application = require("application");
 import * as Toast from 'nativescript-toasts';
-import { RouterExtensions } from "nativescript-angular/router";
 
 import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
-import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
-import { DialogContent } from '../CustomDialogTest/DialogContent.component'
-import dialogs = require("ui/dialogs");
+
+
+
 //import { DrawerService } from '../../services/drawer.service';
 // import { EventData } from 'data/observable';
 
@@ -85,10 +84,7 @@ export class HomePage extends DrawerPage implements AfterViewInit {
 
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef,
-        private modalService: ModalDialogService,
-        private viewContainerRef: ViewContainerRef,
-        private routerExtensions: RouterExtensions) {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
         super(changeDetectorRef);
         this.AndroidActivityEvent();
         this.source = [];
@@ -99,49 +95,38 @@ export class HomePage extends DrawerPage implements AfterViewInit {
         }
 
     }
-    public goBack() {
-        //در صفحه اصلی کاربرد ندارد ولی در پیج های بعدی به درد میخورد
-        //   this.routerExtensions.backToPreviousPage();
-    }
-    public toggle() {
+   
+    public toggleDrawer() {
         this.drawer.toggleDrawerState();
     }
+ 
 
-    menu1() {
-        // inputType property can be dialogs.inputType.password or dialogs.inputType.text.
-        dialogs.prompt({
-            title: "عنوان  معمولی",
-            message: "متن پیام",
-            okButtonText: "تایید",
-            cancelButtonText: "لغو",
-            neutralButtonText: "دکمه",
-            defaultText: "متن پیش فرض",
-            inputType: dialogs.inputType.password
-        }).then(r => {
-            console.log("Dialog result: " + r.result + ", text: " + r.text);
-        });
-    }
-
-    menu2() {
-        let options: ModalDialogOptions = {
-            context: { promptMsg: "این هم دیالوگ کاستوم که یک کامپوننت است." },
-            fullscreen: false,
-            viewContainerRef: this.viewContainerRef
-        };
-
-        this.modalService.showModal(DialogContent, options);
-    }
-
+    isItemVisible: boolean = false;
     loadMoreItems(event) {
-        this.counter += 1;
-        this.source.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
+        this.isItemVisible = true;
+        console.log( "loading...."+this.isItemVisible);
+        var source = this.source;
+        var counter = this.counter;
+        var self=this;
+        setTimeout(function () {
+            //   self.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
+            for (var i = 0; i < 50; i++) {
+                source.push({ title: "NEW: t" + counter, email: "erer" + counter + "@gmail.com" })
+                counter = i;
+            }
+        self.isItemVisible = false;
+             console.log("finish loading...."+self.isItemVisible);          
+        }, 3000);
 
     }
+
+
     onLoaded(event) {
         //  console.log("onLoaded") 
     }
     onItemLoading(event) {
-        //  console.log("onItemLoading") 
+        //  console.log("onItemLoading")
+    
     }
     onItemTap(event) {
         this.counter += 1;
@@ -168,6 +153,26 @@ export class HomePage extends DrawerPage implements AfterViewInit {
         if (this.currentSlide > 3) this.currentSlide = 3;
         if (this.currentSlide < 1) this.currentSlide = 1;
 
+    }
+
+    OpenDrawer() {
+
+        let toastOptions1: Toast.ToastOptions =
+            {
+                text: "کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.",
+                duration: Toast.DURATION.LONG
+            };
+        Toast.show(toastOptions1);
+        let toastOptions2: Toast.ToastOptions =
+            {
+                text: "ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم",
+                duration: Toast.DURATION.LONG
+            };
+        Toast.show(toastOptions2);
+        //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
+        //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
+        if (this.drawer != undefined)
+            this.drawer.toggleDrawerState();
     }
     private AndroidActivityEvent() {
         if (application.android) {
@@ -215,25 +220,4 @@ export class HomePage extends DrawerPage implements AfterViewInit {
             });
         }
     }
-    OpenDrawer() {
-        let toastOptions1: Toast.ToastOptions =
-            {
-                text: "کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.",
-                duration: Toast.DURATION.LONG
-            };
-        Toast.show(toastOptions1);
-        let toastOptions2: Toast.ToastOptions =
-            {
-                text: "ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم",
-                duration: Toast.DURATION.LONG
-            };
-        Toast.show(toastOptions2);
-        //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
-        //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
-       if(this.drawer!=undefined)
-        this.drawer.toggleDrawerState();
-
-        //   console.dir(this.sv)
-    }
-
 }

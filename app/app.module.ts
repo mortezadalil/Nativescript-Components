@@ -10,12 +10,12 @@ import {HomePage} from "./pages/home/home.page";
 import {SettingsPage} from "./pages/settings/settings.page";
 import {TodoPage} from "./pages/todo/todo.page";
 import {TodoListComponent} from "./components/todolist/todo.list.component";
+import {ActionBarComponent} from './components/actionBar/actionBar.component'
 import {CheckboxComponent} from "./components/checkbox/checkbox.component";
 import {StatusPipe} from './pipes/status.pipe';
 import {TodosService} from './services/todos.service';
 import { DialogContent } from './pages/CustomDialogTest/DialogContent.component'
 import { FilePage } from './pages/file/file.page';
-
 
 
 @NgModule({
@@ -26,11 +26,12 @@ import { FilePage } from './pages/file/file.page';
         SettingsPage,
         TodoPage,
         DrawerComponent,
+        ActionBarComponent,
         TodoListComponent,
         CheckboxComponent,
         StatusPipe,
         DialogContent,
-        FilePage
+        FilePage,
     ],
     bootstrap: [
         AppComponent
