@@ -5,9 +5,9 @@ import * as Toast from 'nativescript-toasts';
 
 import { ScrollView } from "ui/scroll-view";
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
-
-
-
+import * as LocalNotifications from "nativescript-local-notifications";
+LocalNotifications.hasPermission();
+import Tasks = require("nativescript-tasks");
 //import { DrawerService } from '../../services/drawer.service';
 // import { EventData } from 'data/observable';
 
@@ -56,9 +56,38 @@ export class HomePage extends DrawerPage implements AfterViewInit {
     source: Array<any>;
     private counter: number;
 
+
+    cc = 1;
+    dd = 1;
     ngAfterViewInit(): void {
         //در کلاس والد ویوی دراور را به آبجکت تبدیل میکنیم
         this.getDrawerView();
+
+
+        //https://github.com/eddyverbruggen/nativescript-local-notifications
+        LocalNotifications.schedule([{
+            id: 1,
+            title: 'The title',
+            body: 'Recurs every minute until cancelled',
+            ticker: 'The ticker',
+            badge: 1,
+            groupedMessages: ["The first", "Second", "Keep going", "one more..", "OK Stop"], //android only
+            groupSummary: "Summary of the grouped messages above", //android only
+            ongoing: true, // makes the notification ongoing (Android only)
+            smallIcon: 'res://heart.png',
+            interval: 'minute',
+            sound: null, // suppress the default sound
+            at: new Date(new Date().getTime() + (10 * 1000)) // 10 seconds from now
+        }]).then(
+            function () {
+                console.log("Notification scheduled");
+            },
+            function (error) {
+                console.log("scheduling error: " + error);
+            }
+            )
+
+
     }
 
     //نکته مهم
@@ -95,27 +124,27 @@ export class HomePage extends DrawerPage implements AfterViewInit {
         }
 
     }
-   
+
     public toggleDrawer() {
         this.drawer.toggleDrawerState();
     }
- 
+
 
     isItemVisible: boolean = false;
     loadMoreItems(event) {
         this.isItemVisible = true;
-        console.log( "loading...."+this.isItemVisible);
+        console.log("loading...." + this.isItemVisible);
         var source = this.source;
         var counter = this.counter;
-        var self=this;
+        var self = this;
         setTimeout(function () {
             //   self.push({ title: "NEW: t" + this.counter, email: "erer" + this.counter + "@gmail.com" })
             for (var i = 0; i < 50; i++) {
                 source.push({ title: "NEW: t" + counter, email: "erer" + counter + "@gmail.com" })
                 counter = i;
             }
-        self.isItemVisible = false;
-             console.log("finish loading...."+self.isItemVisible);          
+            self.isItemVisible = false;
+            console.log("finish loading...." + self.isItemVisible);
         }, 3000);
 
     }
@@ -126,7 +155,7 @@ export class HomePage extends DrawerPage implements AfterViewInit {
     }
     onItemLoading(event) {
         //  console.log("onItemLoading")
-    
+
     }
     onItemTap(event) {
         this.counter += 1;
@@ -154,26 +183,62 @@ export class HomePage extends DrawerPage implements AfterViewInit {
         if (this.currentSlide < 1) this.currentSlide = 1;
 
     }
-
+    public worker;
     OpenDrawer() {
+        //به جای ست اینتروال از ورکر استفاده کن
+        //اول اینو بخون
+        //https://uithought.wordpress.com/2013/10/29/html5-web-worker-vs-setinterval/
+        //نوشته که ورکر خوبیش اینه که با ترد رابط کاربری کار نداره و اگر کار سنگین باشه
+        //ما خطا یا کندی توی رابط کاربری نمیبینیم
+        //روش زیر مولتی ترد هست که مشکل بالا رو حل میکنه
+        //https://docs.nativescript.org/angular/core-concepts/multithreading-model.html
+        //اگر بخواهیم سرویسی برای پشت صحنه بنویسیم باید به شکل جاوایی بنویسیم
+        //در مورد سرویس اینتنت ایجا را بخوان
+        //https://www.nativescript.org/blog/using-android-background-services-in-nativescript?linkId=27714623
+        var self = this;
+        setInterval(function () {
+            self.cc++;
+        }, 10 )
+        setInterval(function () {
+            self.dd++;
+        }, 50 )
+        //مثال : 
+        //https://github.com/kazemihabib/ns-angular-worker-demo
+        //===============================ایجاد بک گراند ورکر
+        // this.worker = new Worker('آدرس فایلی که قرار است در ترد دیگر اجرا شود');
+        // this.worker.onmessage = (msg) => {
+        //      console.log('data ', msg.data);
+        // }
+        //     //========================================
+        //     this.worker.postMessage('hi');
+        //در مودر سیگنال آر SingalR
+        //https://github.com/NathanaelA/nativescript-signalr
 
-        let toastOptions1: Toast.ToastOptions =
-            {
-                text: "کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.",
-                duration: Toast.DURATION.LONG
-            };
-        Toast.show(toastOptions1);
-        let toastOptions2: Toast.ToastOptions =
-            {
-                text: "ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم",
-                duration: Toast.DURATION.LONG
-            };
-        Toast.show(toastOptions2);
-        //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
-        //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
-        if (this.drawer != undefined)
-            this.drawer.toggleDrawerState();
-    }
+
+
+
+
+
+
+
+
+            let toastOptions1: Toast.ToastOptions =
+                {
+                    text: "کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.",
+                    duration: Toast.DURATION.LONG
+                };
+            Toast.show(toastOptions1);
+            let toastOptions2: Toast.ToastOptions =
+                {
+                    text: "ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم",
+                    duration: Toast.DURATION.LONG
+                };
+            Toast.show(toastOptions2);
+            //کار نمی کند چون اولا باید از کلاس دراور ارث بری کنیم.
+            //ثانیا باید ویوکامپوننت حاوی دراور را در همین کامپوننت بگیریم و به والد بفرستیم
+            if (this.drawer != undefined)
+                this.drawer.toggleDrawerState();
+        }
     private AndroidActivityEvent() {
         if (application.android) {
             application.android.on(application.AndroidApplication.activityCreatedEvent, function (args: application.AndroidActivityBundleEventData) {
