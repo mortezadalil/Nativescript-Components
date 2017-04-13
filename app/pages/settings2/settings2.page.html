@@ -1,0 +1,19 @@
+<myActionBar (toggleTap)="toggleDrawer()" [hasDrawer]="false" [IsMainPage]="false" (menue3Tap)="ShowModal3=true"></myActionBar>
+
+<Label text="SETTING2" textWrap="true"></Label>
+<GridLayout rows="*,100 " columns="*" exampleTitle toggleNavButton>
+    <GridLayout row="0" class="p-15 m-t-15" backgroundColor="Red">
+<Button class="btn btn-primary btn-active" width=""text="back" (tap)="goBack()"></Button>
+        
+        <router-outlet  name="tabOutlet"></router-outlet>
+    </GridLayout>
+    <StackLayout row="1" orientation="horizontal" horizontalAlignment="center">
+        <Button class="btn btn-primary btn-active" width="10%" text="حساب کاربری" (tap)="changeRoute(3)"></Button>
+        <Button class="btn btn-primary btn-active" width="10%" text="سبد خرید" (tap)="changeRoute(2)"></Button>
+        <Button class="btn btn-primary btn-active" width="10%" text="خانه" (tap)="changeRoute(1)"></Button>
+
+        <!--<Button class="btn btn-primary btn-active" width="180" text="سبد خرید" [nsRouterLink]="['/settings2', { outlets: { tabOutlet: ['comp2'] } } ]"></Button>
+        <Button class="btn btn-primary btn-active" width="180" text="خانه" [nsRouterLink]="['/settings2', { outlets: { tabOutlet: ['comp3'] } } ]"></Button>-->
+    </StackLayout>
+
+</GridLayout>

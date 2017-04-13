@@ -16,6 +16,11 @@ import {StatusPipe} from './pipes/status.pipe';
 import {TodosService} from './services/todos.service';
 import { DialogContent } from './pages/CustomDialogTest/DialogContent.component'
 import { FilePage } from './pages/file/file.page';
+import { Comp1Component } from './pages/comp1/comp1.component';
+import { Comp2Component } from './pages/comp2/comp2.component';
+import { Comp3Component } from './pages/comp3/comp3.component';
+import { SettingsPage2 } from "./pages/settings2/settings2.page";
+
 
 
 @NgModule({
@@ -24,6 +29,7 @@ import { FilePage } from './pages/file/file.page';
         AppComponent,
         HomePage,
         SettingsPage,
+        SettingsPage2,       
         TodoPage,
         DrawerComponent,
         ActionBarComponent,
@@ -32,6 +38,9 @@ import { FilePage } from './pages/file/file.page';
         StatusPipe,
         DialogContent,
         FilePage,
+        Comp1Component,
+        Comp2Component,
+        Comp3Component,
     ],
     bootstrap: [
         AppComponent
@@ -46,7 +55,7 @@ import { FilePage } from './pages/file/file.page';
         })
     ],
     providers: [
-        TodosService
+        TodosService,
      
     ],
     schemas: [

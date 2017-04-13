@@ -1,6 +1,22 @@
-<ActionBar title="Settings">
-    <NavigationButton text="Back" icon="res://ic_back" (tap)="goBack()"></NavigationButton>
-</ActionBar>
-<StackLayout>
-    <Label text="SETTINGS"></Label>
-</StackLayout>
+<myActionBar (toggleTap)="toggleDrawer()" [hasDrawer]="false" [IsMainPage]="false" (menue3Tap)="ShowModal3=true"></myActionBar>
+
+<GridLayout rows="*,100 " columns="*" exampleTitle toggleNavButton>
+    <GridLayout row="0" [ngSwitch]="color" class="p-15 m-t-15" borderRadius="2">
+        <GridLayout *ngSwitchCase="'purple'" backgroundColor="#8C489F">
+            <comp1></comp1>
+        </GridLayout>
+        <GridLayout *ngSwitchCase="'blue'" backgroundColor="#0077AF">
+            <comp2></comp2>
+        </GridLayout>
+        <GridLayout *ngSwitchCase="'yellow'" backgroundColor="#FFFF66">
+        <comp3></comp3>
+        </GridLayout>
+        <GridLayout *ngSwitchDefault backgroundColor="gray"></GridLayout>
+    </GridLayout>
+    <StackLayout row="1" orientation="horizontal" horizontalAlignment="center">
+        <Button class="btn btn-primary btn-active" width="180" text="حساب کاربری" (tap)="onBlue()"></Button>
+        <Button class="btn btn-primary btn-active" width="180" text="سبد خرید" (tap)="onPurple()"></Button>
+        <Button class="btn btn-primary btn-active" width="180" text="محصولات" (tap)="onYellow()"></Button>
+    </StackLayout>
+
+</GridLayout>

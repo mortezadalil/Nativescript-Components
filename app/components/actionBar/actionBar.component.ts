@@ -9,16 +9,20 @@ import dialogs = require("ui/dialogs");
 	selector: 'myActionBar',
 	moduleId: module.id,
 	templateUrl: './actionBar.component.html',
+	styleUrls: ['./actionBar.component.css']
 
 })
 
 export class ActionBarComponent {
 	@Input()
 	hasDrawer = true;
-		@Input()
+	@Input()
 	IsMainPage = true;
 	@Output()
 	toggleTap = new EventEmitter();
+	@Output()
+	menue3Tap = new EventEmitter();
+
 	constructor(private modalService: ModalDialogService, private routerExtensions: RouterExtensions,
 		private viewContainerRef: ViewContainerRef) { }
 	toggle() {
@@ -52,5 +56,8 @@ export class ActionBarComponent {
 		};
 
 		this.modalService.showModal(DialogContent, options);
+	}
+	menu3() {
+		this.menue3Tap.emit();
 	}
 }

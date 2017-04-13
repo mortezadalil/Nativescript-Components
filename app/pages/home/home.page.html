@@ -14,7 +14,7 @@
 
 
         <!-- >> scroll-view-horizontal-html -->
-        <ScrollView orientation="horizontal" height="200" #slider (loaded)="removeScrollbar(slider)">
+        <ScrollView orientation="horizontal" height="200" #slider  (loaded)="removeScrollbar(slider,$event)">
             <StackLayout orientation="horizontal">
                 <Button width="400" class="Box1" text="Title 1"></Button >
                 <Button  width="500" class="Box2" text="Title 2"></Button >

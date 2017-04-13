@@ -8,6 +8,7 @@ import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/
 import * as LocalNotifications from "nativescript-local-notifications";
 LocalNotifications.hasPermission();
 import Tasks = require("nativescript-tasks");
+import { TouchGestureEventData } from "ui/gestures";
 //import { DrawerService } from '../../services/drawer.service';
 // import { EventData } from 'data/observable';
 
@@ -101,24 +102,35 @@ export class HomePage extends DrawerPage implements AfterViewInit {
     //راه اول کامنت شده است
     // @ViewChild('slider')
     // sv: ElementRef;
-    removeScrollbar(sv: ScrollView) {
-        // let sv = <ScrollView>this.sv.nativeElement;
-        //sv.android.setHorizontalScrollBarEnabled(false);
+    // let sv = <ScrollView>this.sv.nativeElement;
+    //sv.android.setHorizontalScrollBarEnabled(false);
+    removeScrollbar(sv: ScrollView,args : TouchGestureEventData) {
+     //از قصد الکی دو نوع ورودی گرفتم
+     //اولی خود آبجکت را میدهد
+     //دومی اطلاعاتی در مورد رویدادی که اتفاق افتاده
+     //در دومی ما خود آبجکت هم داریم که به روش زیر آن را بیرون میکشیم
+    //var sv1=<ScrollView>args.object;
         if (sv == undefined) {
             console.log("UUUUU");
         } else {
+          
             console.log("ScrollBare Created")
             //میتوان از متدها یا پراپرتی های نیتیو خود اندروید یا آی او اس هم استفاده کرد
             //اطلاعات مربوط به این متدها در آدرس زیر است
             //https://docs.nativescript.org/api-reference/classes/_ui_scroll_view_.scrollview.html
             //پراپرتی Android را نگاه کن
             sv.android.setHorizontalScrollBarEnabled(false);
+           // sv1.android.setHorizontalScrollBarEnabled(false);
         }
 
     }
     worker: any;
+    arr=[];
     constructor(private changeDetectorRef: ChangeDetectorRef) {
         super(changeDetectorRef);
+           for(var i=0;i<100;i++){
+            this.arr.push(i);
+        }
         this.AndroidActivityEvent();
         this.source = [];
         this.counter = 0;
@@ -319,11 +331,7 @@ export class HomePage extends DrawerPage implements AfterViewInit {
             });
 
             application.android.on(application.AndroidApplication.activityBackPressedEvent, function (args: application.AndroidActivityBackPressedEventData) {
-                // setTimeout(() => {
-                //     this.drawer = this.drawerComponent.sideDrawer;//در والد این فیلد وجود دارد
-                //     let sv = <ScrollView>this.sv.nativeElement;
-                //     sv.android.setHorizontalScrollBarEnabled(false);
-                // }, 10)
+       //     this.router.navigate(['/settings2', { outlets: { tabOutlet: ['comp1'] } }]);
                 console.log("Event: " + args.eventName + ", Activity: " + args.activity);
                 // Set args.cancel = true to cancel back navigation and do something custom.
             });
