@@ -120,6 +120,7 @@ export class HomePage extends DrawerPage implements AfterViewInit {
             //https://docs.nativescript.org/api-reference/classes/_ui_scroll_view_.scrollview.html
             //پراپرتی Android را نگاه کن
             sv.android.setHorizontalScrollBarEnabled(false);
+            sv.android.setVerticalScrollBarEnabled(false);
            // sv1.android.setHorizontalScrollBarEnabled(false);
         }
 

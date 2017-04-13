@@ -7,24 +7,61 @@
     </ScrollView>
     <StackLayout tkMainContent padding="20">
 
-        <Label text="فونت بولد ایرانسنس {{cc}}" class="PersianBold"></Label>
-        <Label text="فونت لایت ایرانسنس {{dd}}" class="PersianLight"></Label>
-        <Label text="محل قراردادن فونت : /app/fonts"></Label>
-        <Button text="باز و بسته کردن دراور" (tap)="OpenDrawer()"></Button>
+        <ScrollView #scroller>
+
+            <StackLayout>
+                <Label text="فونت بولد ایرانسنس {{cc}}" class="PersianBold"></Label>
+                <Label text="فونت لایت ایرانسنس {{dd}}" class="PersianLight"></Label>
+                <Label text="محل قراردادن فونت : /app/fonts"></Label>
+                <Button text="باز و بسته کردن دراور" (tap)="OpenDrawer()"></Button>
+                <ScrollView orientation="horizontal" height="200" #slider (loaded)="removeScrollbar(slider,$event)">
+                    <StackLayout orientation="horizontal">
+                        <Button width="400" class="Box1" text="Title 1"></Button >
+                        <Button  width="500" class="Box2" text="Title 2"></Button >
+                        <Button  width="500" backgroundColor="green" text="Title 3"></Button >
+                        <Button  width="500" backgroundColor="black" color="white" text="Title 4"></Button >
+                        <Button  width="500" backgroundColor="blue" color="yellow" text="Title 5"></Button >
+                    </StackLayout>
+                </ScrollView>
+                 <AbsoluteLayout>
+                    <GridLayout width="100%" columns="*">
+                        <label class="{{currentSlide==1 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkblue;
+                        height:200;color:white;font-size: 20;
+                        text-align:center;" text="اسلاید1"></label>
+                        <label class="{{currentSlide==2 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkgreen;
+                        height:200;color:white;font-size: 20;
+                        text-align:center" text="اسلاید2"></label>
+                        <label class="{{currentSlide==3 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkred;
+                        height:200;color:white;font-size: 20;
+                        text-align:center" text="اسلاید3"></label>
+                     </GridLayout>
+
+                      <GridLayout width="100%" height="200" rows="*" columns="*, *" verticalAlignment="center">
+                        <button text="<" row="0" col="0"  (tap)="tap('prev')" backgroundColor="white" horizontalAlignment="left" style="opacity:.2"></button>
+                        <button text=">" row="0" col="1" (tap)="tap('next')" backgroundColor="white" horizontalAlignment="right" style="opacity:.2"></button>
+                      </GridLayout>
+                  </AbsoluteLayout>
+
+                        <StackLayout>
+                            <Label text="در حال لود شدن" textWrap="true" [visibility]="isItemVisible ? 'visible' : 'collapsed'"></Label>
+
+                            <ListView height="500" [items]="source" (loaded)="onLoaded(event)" (itemLoading)="onItemLoading(event)" (itemTap)="onItemTap($event)"
+                                (loadMoreItems)="loadMoreItems($event)" class="list-group">
+                                <template let-item="item" let-odd="odd" let-even="even">
+                                    <StackLayout [class.white]="odd" [class.yellow]="even">
+                                        <Label [text]="item.email" class="list-group-item"></Label>
+                                    </StackLayout>
+                                </template>
+                            </ListView>
 
 
-        <!-- >> scroll-view-horizontal-html -->
-        <ScrollView orientation="horizontal" height="200" #slider  (loaded)="removeScrollbar(slider,$event)">
-            <StackLayout orientation="horizontal">
-                <Button width="400" class="Box1" text="Title 1"></Button >
-                <Button  width="500" class="Box2" text="Title 2"></Button >
-                <Button  width="500" backgroundColor="green" text="Title 3"></Button >
-                <Button  width="500" backgroundColor="black" color="white" text="Title 4"></Button >
-                <Button  width="500" backgroundColor="blue" color="yellow" text="Title 5"></Button >
-            </StackLayout >
-        </ScrollView>
-        <!-- << scroll-view-horizontal-html -->
-        <AbsoluteLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+
+                </ScrollView>
+
+                <!--    <AbsoluteLayout>
             <GridLayout width="100%" columns="*">
                      <label class="{{currentSlide==1 ? 'animateVisible' : 'animateHide'}}" style="background-color:darkblue;
                         height:200;color:white;font-size: 20;
@@ -39,25 +76,25 @@
 
        <GridLayout width="100%" height="200" rows="*" columns="*, *" verticalAlignment="center">
           <button text="<" row="0" col="0"  (tap)="tap('prev')" backgroundColor="white" horizontalAlignment="left" style="opacity:.2"></button>
-                <button text=">" row="0" col="1" (tap)="tap('next')" backgroundColor="white" horizontalAlignment="right" style="opacity:.2"></button>
-                </GridLayout>
-                </AbsoluteLayout>
+                        <button text=">" row="0" col="1" (tap)="tap('next')" backgroundColor="white" horizontalAlignment="right" style="opacity:.2"></button>
+                        </GridLayout>
+                        </AbsoluteLayout>
 
-                <StackLayout orientation="vertical">
-                    <Label text="در حال لود شدن" textWrap="true" [visibility]="isItemVisible ? 'visible' : 'collapsed'"></Label>
+                        <StackLayout orientation="vertical">
+                            <Label text="در حال لود شدن" textWrap="true" [visibility]="isItemVisible ? 'visible' : 'collapsed'"></Label>
 
-                    <ListView [items]="source" (loaded)="onLoaded(event)" (itemLoading)="onItemLoading(event)" (itemTap)="onItemTap($event)"
-                        (loadMoreItems)="loadMoreItems($event)" class="list-group">
-                        <template let-item="item" let-odd="odd" let-even="even">
-                            <StackLayout [class.white]="odd" [class.yellow]="even">
-                                <Label [text]="item.email" class="list-group-item"></Label>
-                            </StackLayout>
-                        </template>
-                    </ListView>
+                            <ListView [items]="source" (loaded)="onLoaded(event)" (itemLoading)="onItemLoading(event)" (itemTap)="onItemTap($event)"
+                                (loadMoreItems)="loadMoreItems($event)" class="list-group">
+                                <template let-item="item" let-odd="odd" let-even="even">
+                                    <StackLayout [class.white]="odd" [class.yellow]="even">
+                                        <Label [text]="item.email" class="list-group-item"></Label>
+                                    </StackLayout>
+                                </template>
+                            </ListView>
 
 
 
-                </StackLayout>
+                        </StackLayout>-->
 
 
             </StackLayout>
